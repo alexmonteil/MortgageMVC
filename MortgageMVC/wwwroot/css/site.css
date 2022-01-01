@@ -1,0 +1,114 @@
+﻿:root {
+    --primary-color: #009999;
+    --secondary-color: #ff993b;
+    --dark-color: #292929;
+    --white-color: #DFE3E4;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    color: var(--dark-color);
+    background: #dce35b; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #6b8583, #16a95c); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #6b8583, #16a95c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.bg-opacity {
+    opacity: 0.8;
+}
+
+nav {
+    background-color: var(--dark-color);
+}
+
+footer {
+    background-color: var(--dark-color);
+}
+
+h1,h2,h3,h4,h5,h6 {
+    color: var(--primary-color);
+}
+
+
+main>.container {
+    padding: 60px 15px 0;
+}
+
+#content {
+    min-height: 90vh;
+}
+
+footer {
+    padding-right: 1rem;
+}
+
+#msicon {
+    color: darkslateblue;
+}
+
+#bsicon {
+    color: purple;
+}
+
+#jsicon {
+    color: rgb(226, 211, 4);
+}
+
+#html5icon {
+    color: orangered;
+}
+
+#css3icon {
+    color: rgb(11, 82, 214);
+}
+
+#hero-picture {
+    max-height:30vh;
+}
+
+
+code[class*="language-"],
+pre[class*="language-"] {
+    white-space: pre-wrap;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+code {
+    font-size: 60%;
+    overflow: auto;
+}
+
+
+/* Loan Form Styles */
+
+#paymentTitle {
+    text-align: center;
+    font-size: 1.5rem;
+    font-style: italic;
+
+}
+
+#payment {
+    text-align: center;
+    font-size: 4rem;
+    font-weight: bold;
+    color: #2B404F;
+}
+
+
+#totalCost {
+    font-weight: bold;
+}
+
+.btn:focus {
+    box-shadow: none;
+}
+
+.break-word {
+    word-wrap: break-word;
+}

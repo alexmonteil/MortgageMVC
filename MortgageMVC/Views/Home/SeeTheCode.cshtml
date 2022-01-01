@@ -1,0 +1,131 @@
+﻿<div class="container">
+    <!-- First row -->
+    <div class="row justify-content-center">
+        <div class="col-10">
+            <div class="card mt-5 shadow">
+                <div class="card-body">
+                    <h4 class="card-title border-bottom p-1"><i class="fas fa-bolt"></i> Code Review</h4>
+                    <p class="card-text">The application generates the mortgage data section and the amortization schedule using the following models and methods:</p>
+                    <p class="card-text">The models:</p>
+                    <ul>
+                        <li>Loan</li>
+                        <li>LoanPayment</li>
+                    </ul>
+                    <p class="card-text">The methods:</p>
+                    <ul>
+                        <li>CalcMonthlyInterest</li>
+                        <li>CalcMonthlyRate</li>
+                        <li>CalcPayment</li>
+                        <li>GetPayments</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Second row -->
+    <div class="row justify-content-center">
+        <div class="col-10">
+            <!--FizzBuzz Challenge Code -->
+            <pre class="line-numbers p-0" tabindex="0">
+        <code class="language-csharp">
+        public class Loan
+        {
+            public decimal Amount { get; set; }
+            public decimal Rate { get; set; }
+            public int Term { get; set; }
+            public decimal Payment { get; set; }
+            public decimal TotalInterest { get; set; }
+            public decimal TotalCost { get; set; }
+            public List<LoanPayment> Payments { get; set; }
+
+            public Loan()
+            {
+                this.Amount = 0.0m;
+                this.Rate = 0.0m;
+                this.Term = 0;
+                this.Payment = 0.0m;
+                this.TotalInterest = 0.0m;
+                this.TotalCost = 0.0m;
+                this.Payments = new List<LoanPayment>();
+            }
+        }
+
+        public class LoanPayment
+        {
+            public int Month { get; set; }
+            public decimal Payment { get; set; }
+            public decimal MonthlyPrincipal { get; set; }
+            public decimal MonthlyInterest { get; set; }
+            public decimal TotalInterest { get; set; }
+            public decimal Balance { get; set; }
+
+            public LoanPayment(int month, decimal payment, decimal monthlyPrincipal, decimal monthlyInterest, 
+            decimal totalInterest, decimal balance)
+            {
+                this.Month = month;
+                this.Payment = payment;
+                this.MonthlyPrincipal = monthlyPrincipal;
+                this.MonthlyInterest = monthlyInterest;
+                this.TotalInterest = totalInterest;
+                this.Balance = balance;
+            }
+        }
+    </code>
+        </pre>
+        <pre class="line-numbers p-0" tabindex="0">
+        <code class="language-csharp">
+        private decimal CalcMonthlyInterest(decimal balance, decimal monthlyRate)
+        {
+            return (balance * monthlyRate);
+        }
+
+        private decimal CalcMonthlyRate(decimal rate)
+        {
+            return rate / 1200;
+        }
+
+        private decimal CalcPayment(decimal amount, decimal rate, int term)
+        {
+            decimal monthlyRate = CalcMonthlyRate(rate);
+            double rateD = Convert.ToDouble(monthlyRate);
+            double amountD = Convert.ToDouble(amount);
+            double paymentD = (amountD * rateD) / (1 - Math.Pow(1 + rateD, -term));
+            return Convert.ToDecimal(paymentD);
+        }
+
+        public Loan GetPayments(Loan loan)
+        {
+            // Calculate monthly payment
+            loan.Payment = CalcPayment(loan.Amount, loan.Rate, loan.Term);
+
+            // Control flow from 1 to term
+            decimal balance = loan.Amount;
+            decimal totalInterest = 0.0m;
+            decimal monthlyInterest = 0.0m;
+            decimal monthlyPrincipal = 0.0m;
+            decimal monthlyRate = CalcMonthlyRate(loan.Rate);
+
+            // Calculate a payment schedule
+            for (int month = 1; month <= loan.Term; month++)
+            {
+                monthlyInterest = CalcMonthlyInterest(balance, monthlyRate);
+                totalInterest += monthlyInterest;
+                monthlyPrincipal = loan.Payment - monthlyInterest;
+                balance -= monthlyPrincipal;
+                LoanPayment loanPayment = new LoanPayment(month, loan.Payment, monthlyPrincipal, 
+                monthlyInterest, totalInterest, balance);
+                loan.Payments.Add(loanPayment);
+            }
+
+            // Add the payments to the loan
+            loan.TotalInterest = totalInterest;
+            loan.TotalCost = loan.Amount + totalInterest;
+            return loan;
+        }
+        </code>
+        </pre>
+        </div>
+    </div>
+</div>
+
+
